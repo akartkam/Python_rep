@@ -56,7 +56,7 @@ def SumToWord(summa):
         elif (divSum % 10) == 1:
             wordSum = wordSum[:-2]
             wordSum += 'на тысяча'
-        elif (divSum % 10) == 1:
+        elif (divSum % 10) == 2:
               wordSum = wordSum[:-1]
               wordSum += 'е тысячи'
         elif ((divSum % 10)>=3)and((divSum % 10)<=4):
@@ -67,8 +67,8 @@ def SumToWord(summa):
     
     divSum = intSum
     wordSum += ' ' + TriplToWord(divSum) + ' руб.'
-
-    divSum = int((summa - int(summa))*100)
+    strsumma = str(summa).replace(',','.') 
+    divSum = int(strsumma[strsumma.find('.')+1:])
     wordSum += ' ' + str(divSum) + ' коп.'
     wordSum = wordSum.strip()
     wordSum = wordSum[0:1].upper() + wordSum[1:]
@@ -82,8 +82,6 @@ if __name__ == '__main__':
     while True:
         try:
             x = float(input("Введите, пожалуйста, сумму , меньше 1 триллиона число: "))
-            if x < 0:
-                raise
             print(SumToWord(x))
         except:
             print("Ой!  Это некорректное число.  Попробуйте ещё раз...")
