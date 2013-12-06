@@ -1,3 +1,5 @@
+import decimal
+
 def TriplToWord(triplet):
     sot = ('','сто','двести','триста','четыреста','пятьсот','шестьсот','семьсот','восемьсот','девятьсот')
     des = ('','','двадцать','тридцать','сорок','пятьдесят', 'шестьдесят','семьдесят','восемьдесят','девяносто')
@@ -18,6 +20,9 @@ def TriplToWord(triplet):
 
 
 def SumToWord(summa):
+    if not isinstance(summa, float):
+        raise 'Неверное число'
+        
     if summa == 0:
         return 'Ноль руб. 00 коп.'
     intSum = int(summa)
@@ -67,8 +72,8 @@ def SumToWord(summa):
     
     divSum = intSum
     wordSum += ' ' + TriplToWord(divSum) + ' руб.'
-    strsumma = str(summa).replace(',','.') 
-    divSum = int(strsumma[strsumma.find('.')+1:])
+    decimal.getcontext().prec = 2
+    divSum = int((decimal.Decimal(summa) - int(summa))*100)
     wordSum += ' ' + str(divSum) + ' коп.'
     wordSum = wordSum.strip()
     wordSum = wordSum[0:1].upper() + wordSum[1:]
